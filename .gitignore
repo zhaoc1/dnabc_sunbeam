@@ -1,6 +1,6 @@
 .DS_Store
-configs
+configs/
 __pycache__
 tests/test.sh
-tests/dnabc_results
-tests/.snakemake
+tests/dnabc_results/
+tests/.snakemake/
