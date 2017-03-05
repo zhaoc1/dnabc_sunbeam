@@ -1,0 +1,6 @@
+.DS_Store
+configs
+__pycache__
+tests/test.sh
+tests/dnabc_results
+tests/.snakemake

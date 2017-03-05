@@ -1,0 +1,14 @@
+{
+    "__default__" :
+    {
+        "h_vmem" : "14G",
+        "mem_free" : "12G",
+        "m_mem_free" : "10G"
+    },
+    "demultiplex" :
+    {
+        "h_vmem" : "15G",
+        "mem_free" : "14G",
+        "m_mem_free" : "10G"
+    }
+}
