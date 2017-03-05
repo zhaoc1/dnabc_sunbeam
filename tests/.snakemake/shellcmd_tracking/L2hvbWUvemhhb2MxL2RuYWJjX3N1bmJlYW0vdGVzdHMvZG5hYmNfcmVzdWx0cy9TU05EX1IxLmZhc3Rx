@@ -1,3 +1,0 @@
-
-        dnabc.py --forward-reads /home/zhaoc1/dnabc_sunbeam/tests/Undetermined_S0_L001_R1_001.fastq --reverse-reads /home/zhaoc1/dnabc_sunbeam/tests/Undetermined_S0_L001_R2_001.fastq         --barcode-file /home/zhaoc1/dnabc_sunbeam/tests/barcodes.txt --output-dir /home/zhaoc1/dnabc_sunbeam/tests/dnabc_results         --summary-file /home/zhaoc1/dnabc_sunbeam/tests/dnabc_results/summary-dnabc.json &> /home/zhaoc1/dnabc_sunbeam/tests/dnabc_results/dnabc.log
-        
