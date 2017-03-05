@@ -1,0 +1,18 @@
+# directory for the project; we don't really touch this
+projdir: /mnt/isilon/microbiome/Hiseq01/XX/Data/Intensities/BaseCalls    
+# todo: transfer from isilon to lustre; gunzip; merge; 
+
+admins: zhaocy.dut@gmail.com      # to receive notification of success or fail
+tmpdir: /mnt/lustre/users/zhaoc1/test   # for some tools to create temporary files
+
+load_shotgun_pipeline_environment: source activate shotgun-pipeline
+
+# customized settings for a project ---- START
+data_dir: /mnt/lustre/users/zhaoc1/largefiles/run7
+lane_num: "12345678"
+barcodes: "barcodes.txt"
+# customized settings for a project ---- DONE
+
+output: # subdirectories in data_dir
+    dnabc: dnabc_results
+
