@@ -39,6 +39,6 @@ unset PYTHONHOME
 unset PYTHONPATH
 source activate dnabc
 
-snakemake -j 8 --cluster-config configs/cluster.json -p -c "qsub -cwd -r n -V -l h_vmem={cluster.h_vmem} -l mem_free={cluster.mem_free} -pe smp {threads}"
+snakemake -j 4 --configfile /path/to/ur/config/file --cluster-config cluster.json -p -c "qsub -cwd -r n -V -l h_vmem={cluster.h_vmem} -l mem_free={cluster.mem_free} -pe smp {threads}"
 
 ```
