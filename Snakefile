@@ -16,24 +16,59 @@ import subprocess
 import time
 from functions import * 
 
-workdir: config["data_dir"]
+workdir: config["project_dir"]
 starttime = int(time.time())
 
-SAMPLE_IDS = build_samples_from_file(config["data_dir"] + "/" + config["barcodes"])
-#SAMPLE_IDS = ["PCMP_" + s for s in SAMPLE_IDS]
-
-DNABC_FP = config["data_dir"] + "/" + config["output"]["dnabc"]
-BARCODE_FP = config["data_dir"] + "/" + config["barcodes"]
+SAMPLE_IDS = build_samples_from_file(config["project_dir"] + "/" + config["barcodes"])
+DNABC_FP = config["project_dir"] + "/" + config["output"]["dnabc"]
+BARCODE_FP = config["project_dir"] + "/" + config["barcodes"]
 TARGET_FPS = expand(DNABC_FP + "/{sample}_{read}.fastq", sample=SAMPLE_IDS, read=["R1","R2"])
+LANES = list(config["lane_num"])
 
 rule all:
     input: 
         TARGET_FPS
 
+rule copy_file:
+    input:
+        config["incoming_dir"] + "/" + config["flowcell_id"] + "/Data/Intensities/BaseCalls/Undetermined_S0_L00{lane}_{rp}_001.fastq.gz"
+    output:
+        config["project_dir"] + "/" + "Undetermined_S0_L00{lane}_{rp}_001.fastq.gz"
+    params:
+        config["project_dir"]
+    shell:
+        """
+        cp {input[0]} {params[0]}
+        """
+
+rule gunzip_file:
+    input:
+        config["project_dir"] + "/" + "Undetermined_S0_L00{lane}_{rp}_001.fastq.gz"
+    output:
+        config["project_dir"] + "/" + "Undetermined_S0_L00{lane}_{rp}_001.fastq"
+    shell:
+       "gunzip -c {input[0]} > {output[0]}"
+
+rule cat_R1s:
+    input:
+        expand(config["project_dir"] + "/" + "Undetermined_S0_L00{lane}_R1_001.fastq", lane=list(config["lane_num"]))
+    output:
+        config["project_dir"] + "/" + "Undetermined_S0_L" + config["lane_num"] + "_R1_001.fastq"
+    shell:
+       "cat {input} > {output[0]}"
+
+rule cat_R2s:
+    input:
+        expand(config["project_dir"] + "/" + "Undetermined_S0_L00{lane}_R2_001.fastq", lane=list(config["lane_num"]))
+    output:
+        config["project_dir"] + "/" + "Undetermined_S0_L" + config["lane_num"] + "_R2_001.fastq"
+    shell:
+       "cat {input} > {output[0]}"
+
 rule demultiplex:
     input:
-        read1 = config["data_dir"] + "/Undetermined_S0_L" + config["lane_num"] + "_R1_001.fastq",
-        read2 = config["data_dir"] + "/Undetermined_S0_L" + config["lane_num"] + "_R2_001.fastq"
+        read1 = config["project_dir"] + "/Undetermined_S0_L" + config["lane_num"] + "_R1_001.fastq",
+        read2 = config["project_dir"] + "/Undetermined_S0_L" + config["lane_num"] + "_R2_001.fastq"
     output:
         TARGET_FPS
     params:

@@ -1,20 +1,20 @@
-# directory for the project; we don't really touch this
-projdir: /mnt/isilon/microbiome/Hiseq01/XX/Data/Intensities/BaseCalls    
-# todo: transfer from isilon to lustre; gunzip; merge; 
+# directory for the incoming data: we never touch this!
+incoming_dir: /mnt/isilon/microbiome/incoming    
+flowcell_id: 180123_D00728_0055_ACC6PUANXX
+lane_num: "45"
+ 
 
-admins: zhaocy.dut@gmail.com      # to receive notification of success or fail
+# to receive notification of success or fail
+admins: zhaocy.dut@gmail.com
 tmpdir: /mnt/lustre/users/zhaoc1/test   # for some tools to create temporary files
 
 load_environment: source activate dnabc
 
-# customized settings for a project ---- START
-data_dir: "/home/zhaoc1/dnabc_sunbeam/tests"
-lane_num: "001"
+project_dir: "/home/zhaoc1/dnabc_sunbeam/tests"
 barcodes: "barcodes.txt"
 threads: 1
-# customized settings for a project ---- DONE
 
-# subdirectories in data_dir
+# subdirectories in project
 output:
     dnabc: dnabc_results
 
