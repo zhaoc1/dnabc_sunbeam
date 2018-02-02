@@ -7,8 +7,8 @@
     },
     "demultiplex" :
     {
-        "h_vmem" : "15G",
-        "mem_free" : "14G",
-        "m_mem_free" : "10G"
+        "h_vmem" : "50G",
+        "mem_free" : "45G",
+        "m_mem_free" : "40G"
     }
 }
