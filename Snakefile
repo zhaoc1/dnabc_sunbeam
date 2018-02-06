@@ -86,8 +86,8 @@ rule demultiplex:
         --barcode-file {BARCODE_FP} --output-dir {DNABC_FP} \
         --summary-file {params.dnabc_summary} &> {log}
         
-        gunzip {params.r1}
-        gunzip {params.r2}
+        gzip {params.r1}
+        gzip {params.r2}
         """
 
 onsuccess:
