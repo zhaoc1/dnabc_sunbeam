@@ -70,10 +70,9 @@ rule demultiplex:
         read1 = config["project_dir"] + "/Undetermined_S0_L" + config["lane_num"] + "_R1_001.fastq",
         read2 = config["project_dir"] + "/Undetermined_S0_L" + config["lane_num"] + "_R2_001.fastq"
     output:
-        r1 = DNABC_FP + "/{sample}_R1.fastq.gz",
-        r2 = DNABC_FP + "/{sample}_R2.fastq.gz"
+        expand(DNABC_FP + "/{sample}_{read}.fastq", sample=SAMPLE_IDS, read=["R1","R2"])
     params:
-        dnabc_summary = DNABC_FP + "/summary-dnabc.json"
+        dnabc_summary = DNABC_FP + "/summary-dnabc.json",
         r1 = DNABC_FP + "/{sample}_R1.fastq",
         r2 = DNABC_FP + "/{sample}_R2.fastq"
     log: 
@@ -85,9 +84,19 @@ rule demultiplex:
         dnabc.py --forward-reads {input.read1} --reverse-reads {input.read2} \
         --barcode-file {BARCODE_FP} --output-dir {DNABC_FP} \
         --summary-file {params.dnabc_summary} &> {log}
-        
-        gzip {params.r1}
-        gzip {params.r2}
+        """
+
+rule gzip_files:
+     input:
+        r1 = DNABC_FP + "/{sample}_R1.fastq",
+        r2 = DNABC_FP + "/{sample}_R2.fastq"
+     output:
+        r1 = DNABC_FP + "/{sample}_R1.fastq.gz",
+        r2 = DNABC_FP + "/{sample}_R2.fastq.gz"
+     shell:
+        """
+        gzip {input.r1}
+        gzip {input.r2}
         """
 
 onsuccess:
