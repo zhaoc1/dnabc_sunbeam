@@ -22,12 +22,12 @@ starttime = int(time.time())
 SAMPLE_IDS = build_samples_from_file(config["project_dir"] + "/" + config["barcodes"])
 DNABC_FP = config["project_dir"] + "/" + config["output"]["dnabc"]
 BARCODE_FP = config["project_dir"] + "/" + config["barcodes"]
-TARGET_FPS = expand(DNABC_FP + "/{sample}_{read}.fastq.gz", sample=SAMPLE_IDS, read=["R1","R2"])
+TARGET_FPS = expand(DNABC_FP + "/{sample}_{read}.fastq", sample=SAMPLE_IDS, read=["R1","R2"])
 LANES = list(config["lane_num"])
 
 rule all:
     input: 
-        TARGET_FPS
+        expand(DNABC_FP + "/{sample}_{read}.fastq.gz", sample=SAMPLE_IDS, read=["R1","R2"])
 
 rule copy_file:
     input:
@@ -70,11 +70,9 @@ rule demultiplex:
         read1 = config["project_dir"] + "/Undetermined_S0_L" + config["lane_num"] + "_R1_001.fastq",
         read2 = config["project_dir"] + "/Undetermined_S0_L" + config["lane_num"] + "_R2_001.fastq"
     output:
-        expand(DNABC_FP + "/{sample}_{read}.fastq", sample=SAMPLE_IDS, read=["R1","R2"])
+        TARGET_FPS
     params:
-        dnabc_summary = DNABC_FP + "/summary-dnabc.json",
-        r1 = DNABC_FP + "/{sample}_R1.fastq",
-        r2 = DNABC_FP + "/{sample}_R2.fastq"
+        dnabc_summary = DNABC_FP + "/summary-dnabc.json"
     log: 
         DNABC_FP + "/dnabc.log"
     threads:
