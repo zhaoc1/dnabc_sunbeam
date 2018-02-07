@@ -41,8 +41,7 @@ source activate dnabc
 
 snakemake -j 4 --configfile /path/to/ur/config/file --cluster-config cluster.json -p -c "qsub -cwd -r n -V -l h_vmem={cluster.h_vmem} -l mem_free={cluster.mem_free} -pe smp {threads}" all_dnabc
 
-snakemake -j 40  --configfile /path/to/ur/config/file --cluster-config cluster.json -p -c "qsub -cwd -r n -V -l h_vmem={cluster.h_vmem} -l mem_free={cluster.mem_free} -pe smp {thread\
-s}" 
+snakemake -j 40  --configfile /path/to/ur/config/file --cluster-config cluster.json -p -c "qsub -cwd -r n -V -l h_vmem={cluster.h_vmem} -l mem_free={cluster.mem_free} -pe smp {threads}" 
 
 
 ```
