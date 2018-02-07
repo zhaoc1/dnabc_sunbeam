@@ -10,5 +10,11 @@
         "h_vmem" : "100G",
         "mem_free" : "55G",
         "m_mem_free" : "40G"
+    },
+    "gzip_files" :
+    {
+        "h_vmem" : "30G",
+        "mem_free" : "10G",
+        "m_mem_free" : "6G"
     }
 }

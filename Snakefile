@@ -29,6 +29,10 @@ rule all:
     input: 
         expand(DNABC_FP + "/{sample}_{read}.fastq.gz", sample=SAMPLE_IDS, read=["R1","R2"])
 
+rule all_dnabc:
+    input:
+        expand(DNABC_FP + "/{sample}_{read}.fastq", sample=SAMPLE_IDS, read=["R1","R2"])
+
 rule copy_file:
     input:
         config["incoming_dir"] + "/" + config["flowcell_id"] + "/Data/Intensities/BaseCalls/Undetermined_S0_L00{lane}_{rp}_001.fastq.gz"
