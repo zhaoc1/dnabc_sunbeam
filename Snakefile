@@ -90,15 +90,12 @@ rule demultiplex:
 
 rule gzip_files:
      input:
-        r1 = DNABC_FP + "/{sample}_R1.fastq",
-        r2 = DNABC_FP + "/{sample}_R2.fastq"
+        DNABC_FP + "/{filename}.fastq"
      output:
-        r1 = DNABC_FP + "/{sample}_R1.fastq.gz",
-        r2 = DNABC_FP + "/{sample}_R2.fastq.gz"
+        DNABC_FP + "/{filename}.fastq.gz"
      shell:
         """
-        gzip {input.r1}
-        gzip {input.r2}
+        gzip {input}
         """
 
 onsuccess:
