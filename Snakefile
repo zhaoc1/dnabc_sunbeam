@@ -25,6 +25,8 @@ BARCODE_FP = config["project_dir"] + "/" + config["barcodes"]
 TARGET_FPS = expand(DNABC_FP + "/{sample}_{read}.fastq", sample=SAMPLE_IDS, read=["R1","R2"])
 LANES = list(config["lane_num"])
 
+print(SAMPLE_IDS)
+
 rule all:
     input: 
         expand(DNABC_FP + "/{sample}_{read}.fastq.gz", sample=SAMPLE_IDS, read=["R1","R2"])
@@ -35,7 +37,9 @@ rule all_dnabc:
 
 rule copy_file:
     input:
+        #config["incoming_dir"] + "/" + config["flowcell_id"] + "_L00{lane}/Undetermined_S0_L00{lane}_{rp}_001.fastq.gz"
         config["incoming_dir"] + "/" + config["flowcell_id"] + "/Data/Intensities/BaseCalls/Undetermined_S0_L00{lane}_{rp}_001.fastq.gz"
+        #config["incoming_dir"] + "/" + config["flowcell_id"] + "/Undetermined_S0_L00{lane}_{rp}_001.fastq.gz"
     output:
         config["project_dir"] + "/" + "Undetermined_S0_L00{lane}_{rp}_001.fastq.gz"
     params:
